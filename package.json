@@ -19,6 +19,9 @@
   "license": "ISC",
   "dependencies": {
     "babel-polyfill": "^6.23.0",
+    "firebase": "^4.1.2",
+    "firebase-tools": "^3.9.1",
+    "material-ui": "^0.18.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
