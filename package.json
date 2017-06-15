@@ -22,6 +22,7 @@
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
     "redux": "^3.6.0",
+    "redux-heat": "^0.2.0",
     "sagui": "^9.0.0-rc.17"
   }
 }
