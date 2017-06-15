@@ -18,6 +18,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "redux": "^3.6.0",
     "sagui": "^9.0.0-rc.17"
   }
 }
