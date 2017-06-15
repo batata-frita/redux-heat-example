@@ -4,4 +4,12 @@
  */
 module.exports = {
   pages: ['index'],
+  develop: {
+    historyApiFallback: true
+  },
+  additionalWebpackConfig: {
+    output: {
+      publicPath: '/'
+    }
+  }
 }
