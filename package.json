@@ -28,5 +28,8 @@
     "redux": "^3.6.0",
     "redux-heat": "^0.2.0",
     "sagui": "^9.0.0-rc.17"
+  },
+  "devDependencies": {
+    "prettier": "^1.4.4"
   }
 }

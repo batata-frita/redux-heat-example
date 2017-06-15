@@ -4,10 +4,13 @@ import { render } from 'react-dom'
 import { createStore } from 'redux'
 import { connect, Provider } from 'react-redux'
 import { onChange, subscribe } from 'redux-heat'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+
+import App from './components/App'
 
 const initialState = {
   yay: 1,
-  path: window.location.pathname
+  path: window.location.pathname,
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -15,7 +18,7 @@ const rootReducer = (state = initialState, action) => {
     case 'NAVIGATE':
       return {
         ...state,
-        path: action.payload
+        path: action.payload,
       }
 
     default:
@@ -26,22 +29,47 @@ const rootReducer = (state = initialState, action) => {
 const store = createStore(rootReducer)
 
 const mapStateToProps = state => state
-
-const App = connect(mapStateToProps)(props => <h1>Hello {props.yay}</h1>)
-
-const effect = onChange(({path}) => path, async (_, path) => {
-  window.history.pushState({}, '', path)
-
-  return undefined
+const mapDispatchToProps = dispatch => ({
+  onChangeName: value =>
+    dispatch({
+      type: 'UPDATE_NAME',
+      payload: value,
+    }),
+  onSubmitName: () =>
+    dispatch({
+      type: 'SUBMIT_NAME',
+    }),
 })
+
+const ConnectedApp = connect(mapStateToProps, mapDispatchToProps)(App)
+
+const navigationEffect = onChange(
+  ({ path }) => path,
+  async (_, path) => {
+    if (path !== window.location.pathname) {
+      window.history.pushState({}, '', path)
+    }
+
+    return undefined
+  }
+)
 
 window.store = store
 
-subscribe(store, [effect])
+subscribe(store, [navigationEffect])
+
+window.addEventListener('popstate', e =>
+  store.dispatch({
+    type: 'NAVIGATE',
+    payload: window.location.pathname,
+  })
+)
 
 render(
   <Provider store={store}>
-    <App />
+    <MuiThemeProvider>
+      <ConnectedApp />
+    </MuiThemeProvider>
   </Provider>,
   document.getElementById('root')
 )
